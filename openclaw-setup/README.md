@@ -8,7 +8,7 @@ Guía paso a paso para instalar OpenClaw (agente personal de IA, self-hosted) en
 
 - Windows 10/11.
 - WSL2 con la distro **Ubuntu-24.04** — usa siempre esta misma distro para todo lo de esta guía (ver "Errores comunes" más abajo sobre qué pasa si abres la equivocada).
-- Cuenta en [console.anthropic.com](https://console.anthropic.com) para la API key (**distinta** de una suscripción Claude Pro/Max — son productos y facturación separados).
+- **Tu propia cuenta** en [console.anthropic.com](https://console.anthropic.com) (email + método de pago — tarjeta o saldo prepago; sin eso la clave no funciona). **No se comparte ni se reutiliza la cuenta/clave de otra persona** — cada quien crea la suya. Es un producto **distinto** de una suscripción Claude Pro/Max (facturación separada, aunque tengas Pro/Max no sirve aquí).
 
 ### 0. Si todavía no tienes WSL2 / Ubuntu-24.04 instalado
 

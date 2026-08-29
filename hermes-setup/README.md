@@ -40,7 +40,7 @@ hermes --version
 
 El camino oficial rápido es `hermes setup --portal` (usa una suscripción de Nous Portal) o el asistente interactivo `hermes model`. **Nosotros configuramos Anthropic directamente con clave propia**, así:
 
-1. Crea una API key en console.anthropic.com → API Keys → "Continuar con una clave de API" (recuerda: es un producto separado de una suscripción Claude Pro/Max).
+1. **Crea tu propia cuenta** en console.anthropic.com (email + método de pago — tarjeta o saldo prepago, sin eso la clave no funciona) → API Keys → "Continuar con una clave de API". **No reutilices la cuenta/clave de otra persona** — cada quien necesita la suya. Recuerda: es un producto separado de una suscripción Claude Pro/Max (aunque tengas Pro/Max, no sirve aquí).
 2. Añade la credencial. Evita pegarla literal en el comando (queda visible en tu historial de terminal) — mejor mételo primero en una variable, así solo tú ves el valor real:
 ```bash
 # Bash (WSL/Linux/macOS)
