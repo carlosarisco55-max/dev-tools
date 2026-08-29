@@ -41,9 +41,19 @@ hermes --version
 El camino oficial rápido es `hermes setup --portal` (usa una suscripción de Nous Portal) o el asistente interactivo `hermes model`. **Nosotros configuramos Anthropic directamente con clave propia**, así:
 
 1. Crea una API key en console.anthropic.com → API Keys → "Continuar con una clave de API" (recuerda: es un producto separado de una suscripción Claude Pro/Max).
-2. Añade la credencial (evita pegarla directamente en tu terminal como texto plano visible — usa una variable):
+2. Añade la credencial. Evita pegarla literal en el comando (queda visible en tu historial de terminal) — mejor mételo primero en una variable, así solo tú ves el valor real:
 ```bash
-hermes auth add anthropic --type api-key --api-key "<TU_API_KEY>" --label mi-anthropic
+# Bash (WSL/Linux/macOS)
+read -s -p "Pega tu API key: " KEY
+hermes auth add anthropic --type api-key --api-key "$KEY" --label mi-anthropic
+unset KEY
+```
+```powershell
+# PowerShell (Windows nativo)
+$KEY = Read-Host -AsSecureString "Pega tu API key"
+$PlainKey = [Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($KEY))
+hermes auth add anthropic --type api-key --api-key "$PlainKey" --label mi-anthropic
+Remove-Variable KEY, PlainKey
 ```
 3. Verifica: `hermes auth status anthropic` → debe decir `anthropic: logged in`.
 4. **Paso importante que no es obvio:** añadir la credencial no basta — hay que decirle al modelo que la use:

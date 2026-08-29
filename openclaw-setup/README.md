@@ -6,14 +6,29 @@ Guía paso a paso para instalar OpenClaw (agente personal de IA, self-hosted) en
 
 ## Requisitos previos
 
-- Windows 10/11 con WSL2 instalado.
-- Una distro Linux en WSL2 (esta guía usa **Ubuntu-24.04** — usa siempre la misma distro para todo, ver "Errores comunes" más abajo).
+- Windows 10/11.
+- WSL2 con la distro **Ubuntu-24.04** — usa siempre esta misma distro para todo lo de esta guía (ver "Errores comunes" más abajo sobre qué pasa si abres la equivocada).
 - Cuenta en [console.anthropic.com](https://console.anthropic.com) para la API key (**distinta** de una suscripción Claude Pro/Max — son productos y facturación separados).
+
+### 0. Si todavía no tienes WSL2 / Ubuntu-24.04 instalado
+
+En **PowerShell como administrador**:
+```powershell
+wsl --install -d Ubuntu-24.04
+```
+Esto instala WSL2 (si no lo tenías) y la distro en un solo paso. Reinicia si te lo pide, y la primera vez que abras Ubuntu-24.04 te pedirá crear un usuario/contraseña de Linux (independiente de tu cuenta de Windows).
+
+Si ya tenías WSL2 con otra distro, no la borres — puedes tener varias instaladas a la vez, solo asegúrate de abrir siempre **Ubuntu-24.04** específicamente (no "Ubuntu" genérico) para todo lo de esta guía.
 
 ## 1. Instalar Node.js dentro de WSL (no el de Windows)
 
-Dentro de tu terminal WSL (Ubuntu-24.04):
+Abre la terminal WSL de **Ubuntu-24.04** (no otra distro) y verifica primero que estás en la correcta:
+```bash
+lsb_release -a
+# debe decir: Description: Ubuntu 24.04.x LTS
+```
 
+Luego:
 ```bash
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
 source ~/.bashrc
@@ -54,7 +69,7 @@ Sigue el asistente interactivo: crea el workspace (`~/.openclaw/workspace`), ins
 
 1. Crea una API key en console.anthropic.com → **API Keys** → "Continuar con una clave de API" (no federación de identidades, esa es para entornos cloud/CI).
 2. Configura un **límite de gasto mensual** en la consola (Billing → Límites de gasto) — recomendado dejar la clave sin caducidad corta pero con tope de gasto bajo, en vez de una expiración de horas (una automatización desatendida necesita que la clave siga viva).
-3. Guarda la clave de forma **persistente** (no como variable de entorno temporal, que se pierde al cerrar la terminal):
+3. Guarda la clave de forma **persistente** (no como variable de entorno temporal, que se pierde al cerrar la terminal). **Sustituye `<TU_API_KEY_AQUI>` por tu clave real antes de ejecutar** — si copias la línea tal cual, guardará literalmente ese texto como si fuera la clave, sin avisarte de error hasta que intentes usarlo:
 
 ```bash
 echo "<TU_API_KEY_AQUI>" | openclaw models auth paste-api-key --provider anthropic --profile-id anthropic:manual
@@ -92,9 +107,9 @@ Abre esa URL en el navegador de Windows (WSL2 expone `localhost`/`127.0.0.1` dir
 
 ## 6. Personalizar la identidad del agente
 
-La primera vez que hables con él (`openclaw`), te preguntará nombre, naturaleza, tono/vibe y emoji. Puedes cambiarlo luego con:
+La primera vez que hables con él (`openclaw`), te preguntará nombre, naturaleza, tono/vibe y emoji. Puedes cambiarlo luego con (verificado, requiere al menos un flag, si lo dejas en blanco no hace nada):
 ```bash
-openclaw agents set-identity --agent main
+openclaw agents set-identity --agent main --name "TuNombre" --emoji "🦆"
 ```
 
 ## Errores comunes (y ya nos pasaron todos)
