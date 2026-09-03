@@ -1,0 +1,17 @@
+<title>webgl test</title>
+<body style="margin:0;background:#111">
+<canvas id="c" width="400" height="300"></canvas>
+<div id="status" style="color:#0f0;font-family:monospace;padding:10px"></div>
+<script>
+  var canvas = document.getElementById('c');
+  var gl = canvas.getContext('webgl2') || canvas.getContext('webgl');
+  var status = document.getElementById('status');
+  if (!gl) {
+    status.textContent = 'NO WEBGL DISPONIBLE';
+    status.style.color = 'red';
+  } else {
+    status.textContent = 'WebGL OK: ' + gl.getParameter(gl.VERSION) + ' | Renderer: ' + gl.getParameter(gl.RENDERER);
+    gl.clearColor(0.4, 0.1, 0.8, 1);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+  }
+</script>

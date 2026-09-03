@@ -1,0 +1,26 @@
+<title>test</title>
+<style>
+  body{ margin:0; background:#050507; padding:20px; }
+  .box{ width:600px; height:300px; border-radius:20px; margin-bottom:20px; overflow:hidden; position:relative }
+  .a{ background:conic-gradient(from 90deg at 50% 50%, #7c3aed, #5eead4, #fb7185, #7c3aed); }
+  .b{ position:relative; }
+  .b-inner{ position:absolute; inset:-20%; background:conic-gradient(from 90deg at 50% 50% in oklch, #7c3aed, #5eead4, #fb7185, #7c3aed); filter:url(#d1); }
+  .c-inner{ position:absolute; inset:-20%; background:conic-gradient(from 90deg at 50% 50% in oklch shorter hue, #7c3aed, #5eead4, #fb7185, #7c3aed); }
+  label{ color:#fff; font-family:sans-serif; display:block; margin-bottom:6px }
+</style>
+<svg width="0" height="0">
+  <filter id="d1" x="-20%" y="-20%" width="140%" height="140%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.008 0.014" numOctaves="2" seed="7" result="noise"/>
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="26" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+  <filter id="d2" x="-20%" y="-20%" width="140%" height="140%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.003 0.005" numOctaves="1" seed="7" result="noise2"/>
+    <feDisplacementMap in="SourceGraphic" in2="noise2" scale="40" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</svg>
+<label>A: gradiente puro, sin filtro</label>
+<div class="box a"></div>
+<label>B: interpolacion en oklch + filtro liquido</label>
+<div class="box b"><div class="b-inner"></div></div>
+<label>C: interpolacion en hsl (longer hue), sin filtro</label>
+<div class="box b"><div class="c-inner"></div></div>
